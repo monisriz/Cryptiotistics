@@ -1,0 +1,183 @@
+{% extends 'base.html' %}
+{% block style %}
+<link rel="stylesheet" href="/static/css/search.css" type="text/css">
+{% endblock %}
+{% block search %}
+<div class="col-lg-4 col-md-12 col-sm-12 col-xs-12 header_search">
+  <div id="bloodhound" class="input-group">
+    <form class="search-box-form" action="/add" method="POST">
+      <input name="currencyName" class="typeahead form-control search-box" type="text" placeholder="Enter the currency">
+      <span class="input-group-btn">
+          <button class="btn btn-secondary" type="submit">Add</button>
+      </span>
+    </form>
+  </div>
+</div>
+
+{% endblock %}
+
+
+{% block userButtons %}
+  	<a class="btn btn-danger" href="/logout">Logout</a>
+	<!-- <span>Welcome, {{ user.fname }}</span>
+	<img class="profileImage" src="{{user.picture}}" alt="User Profile picture"> -->
+{% endblock %}
+
+{% block  content %}
+<div class="wrapper">
+  	<div class="row databox entry-content mx-3">
+		{% if userMarkets %}
+			{% for user in userMarkets %}
+			<div class="col-lg-4 col-md-6 col-xs-12 card expose mp-3">
+				<div class="card-block-top">
+					<h5 class="card-title">{{user.market.coin_name}} - {{user.market.coin_pair}}</h5>
+          {% if user.market.coin_logo == None %}
+          <img class="card-img-top" src="/static/images/nologo.png" alt="{{user.market.coin_pair}}">
+          {% else %}
+					<img class="card-img-top" src="{{user.market.coin_logo}}" alt="{{user.market.coin_pair}}">
+          {% endif %}
+				</div>
+				<ul class="list-group list-group-flush">
+					<li class="list-group-item"><strong>Last Price:</strong>
+              <i class="fa fa-usd" aria-hidden="true"></i> {{"%.10f"|format(user.currency.last_price * bitcoin.last_price)}}
+					</li>
+          <li class="list-group-item"><strong>Last Price:</strong>
+            <i class="fa fa-btc" aria-hidden="true"></i> {{"%.10f"|format(user.currency.last_price)}}
+					</li>
+					<li class="list-group-item"><strong>Volume:</strong> </i> {{(user.currency.base_volume *
+						bitcoin.last_price) | round }}
+					</li>
+					<li class="list-group-item"><strong>24H High:</strong> <i class="fa fa-btc" aria-hidden="true"></i>
+						{{"%.10f"|format(user.currency.day_high)}}
+					</li>
+					<li class="list-group-item"><strong>24H Low:</strong> <i class="fa fa-btc" aria-hidden="true"></i>
+						{{"%.10f"|format(user.currency.day_low)}}
+					</li>
+					<li class="list-group-item"><strong>Bid:</strong> <i class="fa fa-btc" aria-hidden="true"></i>
+						{{"%.10f"|format(user.currency.bid_price)}}
+					</li>
+					<li class="list-group-item"><strong>Ask:</strong> <i class="fa fa-btc" aria-hidden="true"></i>
+						{{"%.10f"|format(user.currency.ask_price)}}
+					</li>
+				</ul>
+				<div class="card-block-bottom">
+					<!--where modal begins-->
+					<a href="#" class="btn btn-lg btn-primary" data-toggle="modal"
+						data-target="#largeModal" onclick="insert_iframe('{{ user.market.coin_pair }}')">Details</a>
+
+            <form action="/delete/{{user.currency.id}}" method="post" class="delete-btn">
+
+              <button type="submit" class="btn btn-lg btn-danger">Delete</button>
+            </form>
+					<div class="modal fade" id="largeModal" tabindex="-1" role="dialog" aria-labelledby="largeModal"
+						aria-hidden="true">
+						<div class="modal-dialog modal-lg">
+							<div class="modal-content">
+								<div class="modal-header">
+									<button type="button" class="close" data-dismiss="modal"
+											aria-hidden="true">&times;</button>
+									<h4 class="modal-title" id="myModalLabel">Spread</h4>
+								</div>
+								<div class="modal-body" id="modal-iframe">
+								</div>
+								<div class="modal-footer">
+									<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				<!--where modal ends-->
+				</div>
+			</div>
+			{% endfor %}
+		{% else %}
+		<div class="col-lg-4 col-md-6 col-xs-12 card expose mp-3">
+			<div class="card-block-top">
+				<h5 class="card-title">{{market.coin_name}} - {{market.coin_pair}}</h5>
+        {% if market.coin_logo == None %}
+        <img class="card-img-top" src="/static/images/nologo.png" alt="{{market.coin_pair}}">
+        {% else %}
+				<img class="card-img-top" src="{{market.coin_logo}}" alt="{{market.coin_pair}}">
+        {% endif %}
+			</div>
+			<ul class="list-group list-group-flush">
+        <li class="list-group-item"><strong>Last Price:</strong>
+            <i class="fa fa-usd" aria-hidden="true"></i> {{"%.10f"|format(user.currency.last_price * bitcoin.last_price)}}
+        </li>
+        <li class="list-group-item"><strong>Last Price:</strong>
+          <i class="fa fa-btc" aria-hidden="true"></i> {{"%.10f"|format(user.currency.last_price)}}
+        </li>
+				<li class="list-group-item"><strong>Volume:</strong> </i> {{(market.currency.base_volume *
+					bitcoin.last_price) | round }}
+				</li>
+				<li class="list-group-item"><strong>24 High:</strong> <i class="fa fa-btc" aria-hidden="true"></i>
+					{{"%.10f"|format(market.currency.day_high)}}
+				</li>
+				<li class="list-group-item"><strong>24 Low:</strong> <i class="fa fa-btc" aria-hidden="true"></i>
+					{{"%.10f"|format(market.currency.day_low)}}
+				</li>
+				<li class="list-group-item"><strong>Bid:</strong> <i class="fa fa-btc" aria-hidden="true"></i>
+					{{"%.10f"|format(market.currency.bid_price)}}
+				</li>
+				<li class="list-group-item"><strong>Ask:</strong> <i class="fa fa-btc" aria-hidden="true"></i>
+					{{"%.10f"|format(market.currency.ask_price)}}
+				</li>
+			</ul>
+			<div class="card-block-bottom">
+				<!--where modal begins-->
+				<a href="#" class="btn btn-lg btn-primary" data-toggle="modal"
+					data-target="#largeModal" onclick="insert_iframe('{{ market.coin_pair }}')">Details</a>
+
+				<div class="modal fade" id="largeModal" tabindex="-1" role="dialog" aria-labelledby="largeModal"
+					aria-hidden="true">
+					<div class="modal-dialog modal-lg">
+						<div class="modal-content">
+							<div class="modal-header">
+								<button type="button" class="close" data-dismiss="modal"
+										aria-hidden="true">&times;</button>
+								<h4 class="modal-title" id="myModalLabel">Spread</h4>
+							</div>
+							<div class="modal-body" id="modal-iframe"></div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			<!--where modal ends-->
+			</div>
+		</div>
+		{% endif %}
+  	</div>
+</div>
+
+<script>
+  function insert_iframe (ticker) {
+      $("#modal-iframe").html(`<iframe src="/table/${ticker}" style="border: 0; width: 100%; height: 300px;"></iframe>`);
+  }
+</script>
+{% endblock %}
+
+
+{% block script %}
+<script src="/static/js/typeahead.bundle.min.js"></script>
+<script>
+// constructs the suggestion engine
+var source = new Bloodhound({
+  datumTokenizer: Bloodhound.tokenizers.whitespace,
+  queryTokenizer: Bloodhound.tokenizers.whitespace,
+  local: [{% for n in names %}'{{ n }}', {% endfor %}]
+});
+
+$('#bloodhound .typeahead').typeahead({
+  hint: true,
+  highlight: true,
+  minLength: 1
+},
+{
+  name: 'states',
+  source: source
+});
+</script>
+
+{% endblock %}

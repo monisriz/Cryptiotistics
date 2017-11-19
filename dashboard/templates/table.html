@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link href="https://fonts.googleapis.com/css?family=Droid+Sans+Mono|VT323" rel="stylesheet">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+  <link rel="stylesheet" href="/static/css/style.css" type="text/css">
+  <link rel="stylesheet" href="/static/css/search.css" type="text/css">
+</head>
+<body>
+<div class ="container">
+<div class="table-responsive">
+    <table class="table">
+        <div class="row ">
+            <div class="col-md-12 modal-subheader">Bid
+            </div>
+        </div>
+
+        <tr>
+            <th>Quantity</th>
+            <th>Price</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for i in range(0, 5) %}
+        <tr>
+            <td>{{"%.1f"|format(buy[i].Quantity)}}</td>
+            <td>{{"%.10f"|format(buy[i].Rate)}}</td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+        <table class="table">
+        <div class="row ">
+            <div class="col-md-12 modal-subheader">Ask
+            </div>
+        </div>
+
+        <tr>
+            <th>Quantity</th>
+            <th>Price</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for i in range(0, 5) %}
+        <tr>
+
+            <td>{{"%.1f"|format(sell[i].Quantity)}}</td>
+            <td>{{"%.10f"|format(sell[i].Rate)}}</td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+</div>
+</body>
+</html>

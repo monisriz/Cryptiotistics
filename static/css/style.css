@@ -1,0 +1,138 @@
+
+html, body {
+  font-family: 'VT323', monospace;
+  font-family: 'Droid Sans Mono', monospace;
+  background-color: #E5E3E3;
+}
+
+.header {
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+}
+
+
+.header_logo {
+  width: 100%;
+  margin-top: 5px;
+}
+
+.card {
+  background-color: white;
+}
+
+.card-block-top {
+  display: flex;
+  align-items: center;
+  padding-bottom: 12px;
+  justify-content: center;
+}
+
+.card-block-bottom {
+   margin-top: 0.7rem;
+}
+
+.delete-btn {
+  display: inline-block;
+}
+
+.card-title {
+  flex: auto;
+}
+.card-img-top {
+  width: 20%;
+  mix-blend-mode: multiply;
+}
+
+.list-group-item {
+  background-color: #E5E3E3;
+}
+
+
+.wrapper:hover {
+    background:rgba(0,0,0,0);
+}
+
+.wrapper:hover .expose {
+    background:#ddd;
+}
+
+.entry-content {
+    padding:6px;
+}
+
+.expose {
+    margin-bottom:6px;
+    padding:12px;
+    border-radius:3px;
+    background:#eee;
+}
+
+.expose:hover {
+    background:#fff!important;
+}
+
+
+.table td, .table th {
+    font-size: .5rem !important;
+    text-align: center;
+    padding: 6px !important;
+}
+
+
+@media(min-width:768px) {
+    .table td, .table th {
+        font-size: 1rem !important;
+    padding: 12px;
+    }
+}
+
+#bloodhound {
+  justify-content:center;
+}
+
+input.search-box {
+  width: auto !important;
+}
+
+.search-box-form {
+  display: flex;
+}
+.twitter-typeahead, .tt-hint, .tt-input, .tt-menu { width: 100% !important;}
+
+
+.profileImage {
+  width: 50px;
+  height: 50px;
+}
+
+
+/*test*/
+
+@media (max-width: 767px) {
+
+  .header_logo, .header_userauth, .header_search{
+    margin: 1em;
+   }
+ }
+
+ @media (min-width: 768px) and (max-width: 959px) {
+
+   .header_logo, .header_userauth, .header_search{
+     margin: 1em;
+   }
+ }
+
+ @media (min-width: 960px) and (max-width: 991px) {
+
+   .header_logo, .header_userauth, .header_search{
+     margin: 1em;
+   }
+ }
+
+.modal-subheader {
+
+text-align: center !important;
+
+}
+
