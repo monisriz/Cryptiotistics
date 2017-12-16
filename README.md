@@ -1,5 +1,5 @@
 # Cryptotistics
-Crypto Currency Dashboard
+<strong>Crypto Currency Dashboard</strong>
 
 Introduction
 ------------
