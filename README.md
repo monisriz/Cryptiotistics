@@ -20,6 +20,3 @@ Technologies
 <li>Bootstrap 4</li>
 <li>jQuery</li>
 </ul>
-
-
-https://www.cryptotistics.com/
